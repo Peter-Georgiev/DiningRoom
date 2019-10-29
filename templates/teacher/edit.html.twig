@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Teacher edit!{% endblock %}
+
+{% block main %}
+    <div class="container body-content span=4 offset=2">
+        <div class="well"  id="edit" >
+            <label for="edit" class="required" >Редактиране на учител</label>
+            {{ form_start(form) }}
+            <fieldset>
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        {{ form_row(form.fullName, {
+                            label: 'Име на учител'
+                        }) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <a class="btn btn-default" href="{{ path('teacher') }}">Изход</a>
+                        <button type="submit" class="btn btn-primary">Запис</button>
+                    </div>
+                </div>
+
+            </fieldset>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    <div class="container body-content span=8 offset=2">
+        <table id="dataTable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+
+            <div class="well"  id="addOnBtn">
+                <button type="submit" class="btn btn-info center-block">Добавяне на учител</button>
+            </div>
+
+            <thead>
+            <tr>
+                <th class="th-sm">Учител</th>
+                <th class="th-sm">Обвързан с брой ученици</th>
+                <th class="th-sm">Редактиране</th>
+                <th class="th-sm">Изтриване</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for teacher in teachers %}
+                <tr id="{{ teacher.id }}">
+                    <td>{{ teacher.fullName }}</td>
+                    <td>{{ teacher.students.count }}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <th class="th-sm">Учител</th>
+                <th class="th-sm">Обвързан</th>
+                <th class="th-sm">Редактиране</th>
+                <th class="th-sm">Изтриване</th>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+
+{% endblock %}
+
+{% block jsCustomPage %}
+    <script type="module" src="{{ asset('/js/custom-page/page-teacher.js') }}"></script>
+{% endblock %}

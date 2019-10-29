@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('/css/style.css') }}">
+            <link rel="stylesheet" href="{{ asset('/js/data-tables/DataTables-1.10.18/css/jquery.dataTables.min.css') }}">
+
+        {% endblock %}
+    </head>
+
+    {% block header %}
+        <header>
+            <div class="navbar navbar-default navbar-static-top" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a href="{{ path('home') }}" class="navbar-brand">CLASS</a>
+
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav navbar-right">
+
+                            {% if app.getUser() %}
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Операции
+                                        <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="{{ path('class') }}">
+                                                Клас
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="{{ path('teacher') }}">
+                                                Курсови ръководители
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="{{ path('student') }}">
+                                                Ученици
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="{{ path('app_product_index') }}">
+                                                Добавяне на задължение/плащане
+                                            </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="{{ path('payment') }}">
+                                                Плащания
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            {% else %}
+
+                            {% endif %}
+
+                            {% if app.getUser() %}
+
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown"
+                                       href="#">{{ app.getUser().getUsername() }}
+                                        <span class="caret"></span></a>
+                                    <ul class="dropdown-menu">
+
+                                        <li class="text-center">
+                                            <a href="{{ path('user_all') }}" class="text-center">
+                                                Виж всички потребители
+                                            </a>
+                                        </li>
+                                        <li class="text-center">
+                                            <a href="{{ path('user_edit', {id: app.getUser().getId() }) }}">
+                                                Редактиране на потребител
+                                                <i class="text-info">{{ app.getUser().getUsername() }}</i>
+                                            </a>
+                                        </li>
+                                        {% if app.getUser() and app.getUser().isAdmin() %}
+                                            <li class="text-center">
+                                                <a href="{{ path('app_register') }}">Регистриране на нов потребител</a>
+                                            </li>
+                                        {% endif %}
+                                        <li class="text-center">
+                                            <a href="{{ path('app_logout') }}">Изход</a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+
+                            {% else %}
+
+                                <li>
+                                    <a href="{{ path('app_login') }}">ВХОД</a>
+                                </li>
+
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+    {% endblock %}
+
+    <body>
+
+        <div class="container body-container">
+            {% block body %}
+                <div class="row">
+                    <div id="main" class="col-sm-9">
+
+                        <div class="container body-content">
+                            {% if danger is defined %}
+                                <h4 class="text-danger text-center" id="danger_text">{{ danger }}</h4>
+                            {% endif %}
+
+                            {% if info is defined %}
+                                <h4 class="text-info text-center" id="text_info">{{ info }}</h4>
+                            {% endif %}
+                        </div>
+
+                        {% block main %}{% endblock %}
+                    </div>
+                </div>
+            {% endblock %}
+        </div>
+    </body>
+
+        {% block footer %}
+            <footer>
+                <div class="container modal-footer">
+                    <p>&copy; 2019</p>
+                </div>
+            </footer>
+        {% endblock %}
+
+        {% block javascripts %}
+            <!-- PLUGIN JQUERY -->
+            <script src="{{ asset('/js/jquery-3.3.1.min.js') }}"></script>
+
+            <script src="{{ asset('/js/moment.min.js') }}"></script>
+            <script src="{{ asset('/js/bootstrap.min.js') }}"></script>
+
+            <!-- PLUGIN DATA-TABLE JS -->
+            <script src="{{ asset('/js/data-tables/DataTables-1.10.18/js/jquery.dataTables.min.js') }}"></script>
+            <!-- <script src="{{ asset('/js/data-tables/Responsive-2.2.2/js/dataTables.responsive.min.js') }}"></script> -->
+            <script src="{{ asset('/js/data-tables/Buttons-1.5.2/js/dataTables.buttons.min.js') }}"></script>
+            <script src="{{ asset('/js/data-tables/Buttons-1.5.2/js/buttons.flash.min.js') }}"></script>
+            <script src="{{ asset('/js/data-tables/Buttons-1.5.2/js/buttons.html5.min.js') }}"></script>
+            <script src="{{ asset('/js/data-tables/Buttons-1.5.2/js/buttons.print.min.js') }}"></script>
+            <script src="{{ asset('/js/data-tables/JSZip-2.5.0/jszip.min.js') }}"></script>
+            <script src="{{ asset('/js/data-tables/pdfmake-0.1.36/pdfmake.min.js') }}"></script>
+            <script src="{{ asset('/js/data-tables/pdfmake-0.1.36/vfs_fonts.js') }}"></script>
+
+
+        {% endblock %}
+
+        {% block jsCustomPage %}
+        {% endblock %}
+</html>

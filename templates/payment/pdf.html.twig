@@ -1,0 +1,75 @@
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+        body {font-family: DejaVu Sans, sans-serif;}
+    </style>
+</head>
+
+{% block title %}Payment Document!{% endblock %}
+
+{% block main %}
+
+    <div class="container body-content span=8 offset=2">
+        <div class="well" id="paymentProduct">
+            <fieldset>
+                <legend>Плащане на задължение</legend>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">Име на ученик</th>
+                        <th scope="col">Клас</th>
+                        <th scope="col">Цена за плащане</th>
+                        <th scope="col">Такса в дни</th>
+                        <th scope="col">Такса за месец</th>
+                        <th scope="col">Статус</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{{ payment.products.student.fullName }}</td>
+                        <td>{{ payment.products.student.class.name }}</td>
+                        <td>{{ payment.products.price }} лв.</td>
+                        <td>{{ payment.products.feeInDays }}</td>
+                        <td>{{ payment.products.forMonth|date('m.Y') }}</td>
+                        {% if payment.products.isPaid %}
+                            <td>Платено</td>
+                        {% else %}
+                            <td>Неплтено</td>
+                        {% endif %}
+                    </tbody>
+                </table>
+
+                <div class="form-group">
+                    <div class="col-sm-4 ">
+                        {{ payment.namePayer }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        {{ payment.price }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        {{ payment.payment }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        {{ payment.seller }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <a class="btn btn-default" href="{{ path('payment') }}">Изход</a>
+                    </div>
+                </div>
+
+            </fieldset>
+        </div>
+    </div>
+
+{% endblock %}

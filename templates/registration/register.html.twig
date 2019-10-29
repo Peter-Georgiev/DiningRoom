@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+
+{% block main %}
+<div class="container body-content span=8 offset=2">
+    <div class="well">
+        {{  form_start(registrationForm) }}
+            <fieldset>
+                <legend>Регистриране</legend>
+                <div class="form-group center-block">
+                    <div class="col-sm-4 col-sm-offset-4">
+                        {{ form_row(registrationForm.fullName, {
+                            label: 'Име презиме фамилия'
+                        }) }}
+                    </div>
+                </div>
+                <div class="form-group center-block">
+                    <div class="col-sm-4 col-sm-offset-4">
+                         {{ form_row(registrationForm.username, {
+                             label: 'Потребителско име за вход'
+                         }) }}
+                    </div>
+                </div>
+                <div class="form-group center-block">
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <label>Ниво на достъп:</label>
+                        <select name="role[name]">
+                            <option value="role_user">Потребител</option>
+                            <option value="role_seller">Продавач</option>
+                            <option value="role_admin">Администратор</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group center-block">
+                    <div class="col-sm-4 col-sm-offset-4">
+                        {{ form_row(registrationForm.password.first, {
+                            label: 'Парола'
+                        }) }}
+                    </div>
+                </div>
+                <div class="form-group center-block">
+                    <div class="col-sm-4 col-sm-offset-4">
+                        {{ form_row(registrationForm.password.second, {
+                            label: 'Повторете паролата'
+                        }) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <a class="btn btn-default" href="{{ path('home') }}">Изход</a>
+                        <button type="submit" class="btn btn-primary">ЗАПАЗИ</button>
+                    </div>
+                </div>
+            </fieldset>
+        {{  form_end(registrationForm) }}
+    </div>
+</div>
+{% endblock %}

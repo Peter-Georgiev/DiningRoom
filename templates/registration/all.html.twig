@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Info users.{% endblock %}
+
+{% block main %}
+{% for user in users %}
+    <div class="container body-content span=8 offset=2">
+        <div class="well">
+            <fieldset>
+                <legend>Потребител: <i class="text-info">{{ user.fullName }}</i>, статус:
+                    {% if user.isDelete %}
+                        <i class="text-danger">неактивен</i>
+                    {% else %}
+                        <i>активен</i>
+                    {% endif %}
+                </legend>
+                <div class="form-group center-block">
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <label>Потребителско име за вход: <i class="text-info">{{ user.username }}</i></label>
+                    </div>
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <label>Правата на потребител <i class="text-info">{{ user.username }}</i> са:</label>
+                        <ul>
+                            {% for role in user.roles %}
+                                {% if role == 'ROLE_ADMIN' %}
+                                    <li>Администратор</li>
+                                {% elseif role == 'ROLE_SELLER' %}
+                                    <li>Продавач</li>
+                                {% elseif role == 'ROLE_USER' %}
+                                    <li>Потребител</li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% if app.getUser() and app.getUser().isAdmin() %}
+                        <div class="col-sm-4 col-sm-offset-4">
+                            <a class="btn btn-warning" href="{{ path('user_edit', {id: user.id}) }}">Редактиране</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </fieldset>
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}

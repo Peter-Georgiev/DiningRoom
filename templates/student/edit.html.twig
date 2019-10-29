@@ -1,0 +1,116 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create student!{% endblock %}
+
+{% block main %}
+
+    <div class="container body-content span=4 offset=2">
+        <div class="well"  id="edit" >
+            <label for="edit" class="required" >Редактиране името на ученика</label>
+            {{ form_start(form) }}
+            <fieldset>
+                <div class="form-group">
+                    <div class="col-sm-4 ">
+                        {{ form_row(form.fullName, {
+                            label: 'Име на ученика'
+                        }) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-4 ">
+                        {{ form_row(form.isActive, {
+                            label: 'Стаус активен/неактивен'
+                        }) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" for="edit_class_name">От клас</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="edit_class_name" name="class_table[id]">
+                            <option  value="{{ student.class.id }}" >{{ student.class.name }}</option>
+                            {% for classTable in classTables %}
+                                <option value="{{ classTable.id }}">{{ classTable.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-4 control-label" for="edit_teacher_name">Курсов ръководител</label>
+                    <div class="col-sm-4">
+                        <select class="form-control" id="edit_teacher_name" name="teacher[id]">
+                            <option  value="{{ student.teacher.id }}" >{{ student.teacher.fullName }}</option>
+                            {% for teacher in teachers %}
+                                <option value="{{ teacher.id }}">{{ teacher.fullName }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-4 col-sm-offset-4">
+                        <a class="btn btn-default" href="{{ path('student') }}">Изход</a>
+                        <button type="submit" class="btn btn-default">Запис</button>
+                    </div>
+                </div>
+            </fieldset>
+            {{ form_end(form) }}
+        </div>
+    </div>
+
+    <div class="container body-content span=8 offset=2">
+        <table id="dataTable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+
+            <div class="well"  id="addOnBtn">
+                <button type="submit" class="btn btn-info center-block">Добавяне на нов ученик</button>
+            </div>
+
+            <thead>
+            <tr>
+                <th class="th-sm">Ученик</th>
+                <th class="th-sm">Статус</th>
+                <th class="th-sm">Клас</th>
+                <th class="th-sm">Класен</th>
+                <th class="th-sm">Заявки</th>
+                <th class="th-sm">Редактиране</th>
+                <th class="th-sm">Изтриване</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for student in students %}
+                <tr id="{{ student.id }}">
+                    <td>{{ student.fullName }}</td>
+                    {% if student.active == true %}
+                        <td>Активен</td>
+                    {% else %}
+                        <td>Нe активен</td>
+                    {% endif %}
+                    <td val="{{ student.class.id }}">{{ student.class.name }}</td>
+                    <td val="{{ student.teacher.id }}">{{ student.teacher.fullName }}</td>
+                    <td>{{ student.products.count }}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <th class="th-sm">Ученик</th>
+                <th class="th-sm">Статус</th>
+                <th class="th-sm">Клас</th>
+                <th class="th-sm">Класен</th>
+                <th class="th-sm">Заявки</th>
+                <th class="th-sm">Редактиране</th>
+                <th class="th-sm">Изтриване</th>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+
+{% endblock %}
+
+{% block jsCustomPage %}
+    <script type="module" src="{{ asset('/js/custom-page/page-student.js') }}"></script>
+{% endblock %}

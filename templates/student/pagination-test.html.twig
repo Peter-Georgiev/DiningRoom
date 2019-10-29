@@ -1,0 +1,13 @@
+% extends 'base.html.twig' %}
+
+{% block title %}Create student!{% endblock %}
+
+{% block main %}
+
+   {{ form_start(form) }}
+   {{ form.fullName }}
+   {{ form.class }}
+   {{ form.isActive }}
+   {{ form_end(form) }}
+
+{% endblock %}

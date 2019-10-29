@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Teacher page!{% endblock %}
+
+{% block main %}
+    <div class="container body-content span=8 offset=2">
+        <table id="dataTable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+
+            <div class="well"  id="addOnBtn">
+                <button type="submit" class="btn btn-info center-block">Добавяне на учител</button>
+            </div>
+
+            <thead>
+            <tr>
+                <th class="th-sm">Учител</th>
+                <th class="th-sm">Обвързан с брой ученици</th>
+                <th class="th-sm">Редактиране</th>
+                <th class="th-sm">Изтриване</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for teacher in teachers %}
+                <tr id="{{ teacher.id }}">
+                    <td>{{ teacher.fullName }}</td>
+                    <td>{{ teacher.students.count }}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <th class="th-sm">Учител</th>
+                <th class="th-sm">Обвързан</th>
+                <th class="th-sm">Редактиране</th>
+                <th class="th-sm">Изтриване</th>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+
+{% endblock %}
+
+{% block jsCustomPage %}
+    <script type="module" src="{{ asset('/js/custom-page/page-teacher.js') }}"></script>
+{% endblock %}

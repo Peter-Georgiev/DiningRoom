@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product!{% endblock %}
+
+{% block main %}
+
+    <div id="product_create" class="container body-content span=8 offset=2" hidden>
+        <div class="well">
+            <fieldset>
+            </fieldset>
+        </div>
+    </div>
+    <div class="container body-content span=8 offset=2">
+        <table id="dataTable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+            <div class="well"  id="addOnBtn">
+                <button type="submit" class="btn btn-info center-block">Добавяне на задължение</button>
+            </div>
+        </table>
+    </div>
+
+{% endblock %}
+
+{% block jsCustomPage %}
+    <script type="module" src="{{ asset('js/custom-page/page-product-ajax.js') }}"></script>
+{% endblock %}

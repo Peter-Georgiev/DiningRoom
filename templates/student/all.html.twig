@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello StudentController!{% endblock %}
+
+{% block body %}
+<div class="container body-content">
+    <div class="row">
+        <div class="col-md-12">
+            <article>
+                <header>
+                <h3>all students</h3>
+                </header>
+                <ul class="list-group">
+                    {% for student in students %}
+                        <h3 class="text-warning">{{ student.fullName }}</h3>
+                        <h4 class="text-info">class: {{ student.class }},
+                            teacher: {{ student.teacherFirstName }} {{ student.teacherMiddleName }}
+                            {{ student.teacherLastName }}
+                        </h4>
+                        <table class="table table-bordered small">
+                            <a class="btn-sm btn-success"
+                               href="{{ path('home', {'id' : student.id}) }}">Edit &raquo;</a>
+                            &#160&#160&#160
+                            <a class="btn-sm btn-danger"
+                               href="{{ path('home', {'id' : student.id}) }}">Delete &raquo;</a>
+                            &#160&#160&#160
+                        </table>
+
+                    {% endfor %}
+                </ul>
+            </article>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
