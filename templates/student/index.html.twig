@@ -1,56 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Create student!{% endblock %}
+{% block title %}Student!{% endblock %}
 
 {% block main %}
 
     <div class="container body-content span=8 offset=2">
-        <table id="dataTable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+        <div class="table-responsive">
+            <table id="dataTable"  class="display" cellspacing="0" width="100%">
+                <div class="well"  id="addOnBtn">
+                    <button type="submit" class="btn btn-info center-block">Добавяне на нов ученик</button>
+                </div>
 
-            <div class="well"  id="addOnBtn">
-                <button type="submit" class="btn btn-info center-block">Добавяне на нов ученик</button>
-            </div>
-
-            <thead>
-            <tr>
-                <th class="th-sm">Ученик</th>
-                <th class="th-sm">Статус</th>
-                <th class="th-sm">Клас</th>
-                <th class="th-sm">Класен</th>
-                <th class="th-sm">Заявки</th>
-                <th class="th-sm">Редактиране</th>
-                <th class="th-sm">Изтриване</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for student in students %}
-                <tr id="{{ student.id }}">
-                    <td>{{ student.fullName }}</td>
-                    {% if student.active == true %}
-                        <td>Активен</td>
-                    {% else %}
-                        <td>Нe активен</td>
-                    {% endif %}
-                    <td val="{{ student.class.id }}">{{ student.class.name }}</td>
-                    <td val="{{ student.teacher.id }}">{{ student.teacher.fullName }}</td>
-                    <td>{{ student.products.count }}</td>
-                    <td></td>
-                    <td></td>
+                <thead>
+                <tr>
+                    <th class="th-sm">Ученик</th>
+                    <th class="th-sm">Статус</th>
+                    <th class="th-sm">Клас</th>
+                    <th class="th-sm">Класен</th>
+                    <th class="th-sm">Заявки</th>
+                    <th class="th-sm">Редактиране</th>
+                    <th class="th-sm">Изтриване</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-            <tfoot>
-            <tr>
-                <th class="th-sm">Ученик</th>
-                <th class="th-sm">Статус</th>
-                <th class="th-sm">Клас</th>
-                <th class="th-sm">Класен</th>
-                <th class="th-sm">Заявки</th>
-                <th class="th-sm">Редактиране</th>
-                <th class="th-sm">Изтриване</th>
-            </tr>
-            </tfoot>
-        </table>
+                </thead>
+                <tbody>
+                {% for student in students %}
+                    <tr id="{{ student.id }}">
+                        <td>{{ student.fullName }}</td>
+                        {% if student.active == true %}
+                            <td>Активен</td>
+                        {% else %}
+                            <td>Нe активен</td>
+                        {% endif %}
+                        <td val="{{ student.class.id }}">{{ student.class.name }}</td>
+                        <td val="{{ student.teacher.id }}">{{ student.teacher.fullName }}</td>
+                        <td>{{ student.products.count }}</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th class="th-sm">Ученик</th>
+                    <th class="th-sm">Статус</th>
+                    <th class="th-sm">Клас</th>
+                    <th class="th-sm">Класен</th>
+                    <th class="th-sm">Заявки</th>
+                    <th class="th-sm">Редактиране</th>
+                    <th class="th-sm">Изтриване</th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
     </div>
 
 {% endblock %}

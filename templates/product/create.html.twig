@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Създаване на задължение!{% endblock %}
+{% block title %}Create product!{% endblock %}
 
 {% block main %}
 
@@ -65,11 +65,13 @@
 
 
     <div class="container body-content span=8 offset=2">
-        <table id="dataTable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
-            <div class="well"  id="addBtnProduct">
-                <button type="submit" class="btn btn-info center-block">Добавяне на задължение</button>
-            </div>
-        </table>
+        <div class="table-responsive">
+            <table id="dataTable"  class="display" cellspacing="0" width="100%">
+                <div class="well"  id="addOnBtn">
+                    <button type="submit" class="btn btn-info center-block">Добавяне на задължение</button>
+                </div>
+            </table>
+        </div>
     </div>
 
 {% endblock %}

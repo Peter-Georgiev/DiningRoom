@@ -2,10 +2,30 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7b459a19-ddba-4f88-94bc-bbe73cbd220d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/old/page-createProduct.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/old/page-product.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/old/page-productCreate-ajax.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/old/paymentCreate.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/js/old/temp.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/class_table/create.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/class_table/create.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/class_table/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/class_table/edit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/class_table/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/class_table/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/payment/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/payment/edit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/payment/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/payment/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/payment/pdf-temp.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/product/create.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/product/create.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/product/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/product/edit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/product/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/product/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/student/all.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/student/all.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/student/create.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/student/create.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/student/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/student/edit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/student/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/student/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/student/pagination-test.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/student/pagination-test.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/teacher/create.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/teacher/create.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/teacher/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/teacher/edit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/teacher/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/teacher/index.html.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -166,16 +186,16 @@
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\dining_room\public\js\old" />
-      <recent name="C:\xampp\htdocs\dining_room\public\js\custom-page" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\dining_room\public\js\custom-page" />
       <recent name="C:\xampp\htdocs\dining_room\templates\payment" />
       <recent name="C:\xampp\htdocs\dining_room\templates\registration" />
       <recent name="C:\xampp\htdocs\dining_room\templates\product" />
       <recent name="C:\xampp\htdocs\dining_room\templates\teacher" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\dining_room\public\js\old" />
+      <recent name="C:\xampp\htdocs\dining_room\public\js\custom-page" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -237,7 +257,7 @@
       <workItem from="1572246009734" duration="23750000" />
       <workItem from="1572337294029" duration="4616000" />
       <workItem from="1572347545389" duration="1599000" />
-      <workItem from="1572421969148" duration="1386000" />
+      <workItem from="1572421969148" duration="5940000" />
     </task>
     <servers />
   </component>
@@ -262,13 +282,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/templates/base.html.twig</url>
-          <line>11</line>
+          <line>12</line>
           <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/templates/product/index.html.twig</url>
-          <line>17</line>
-          <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/templates/teacher/edit.html.twig</url>
@@ -279,6 +294,11 @@
           <url>file://$PROJECT_DIR$/templates/product/edit.html.twig</url>
           <line>6</line>
           <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/templates/student/edit.html.twig</url>
+          <line>10</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/public/js/custom-page/page-product-ajax.js</url>
