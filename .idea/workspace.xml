@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7b459a19-ddba-4f88-94bc-bbe73cbd220d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/student/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/student/edit.html.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -234,6 +237,7 @@
       <workItem from="1572246009734" duration="23750000" />
       <workItem from="1572337294029" duration="4616000" />
       <workItem from="1572347545389" duration="1599000" />
+      <workItem from="1572421969148" duration="1386000" />
     </task>
     <servers />
   </component>
