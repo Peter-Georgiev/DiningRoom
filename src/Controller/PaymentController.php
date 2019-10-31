@@ -54,7 +54,7 @@ class PaymentController extends AbstractController
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
 
-    public function pdftAction($id, Request $request)
+    public function pdfAction($id, Request $request)
     {
         $payment = $this->getDoctrine()->getRepository(Payment::class)->find($id);
         if (!$payment) {
@@ -68,7 +68,7 @@ class PaymentController extends AbstractController
         $dompdf = new Dompdf($pdfOptions);
 
         // Retrieve the HTML generated in our twig file
-        $html = $this->renderView('payment/pdf-temp.html.twig', [
+        $html = $this->renderView('payment/pdf.html.twig', [
             'payment' => $payment
         ]);
 

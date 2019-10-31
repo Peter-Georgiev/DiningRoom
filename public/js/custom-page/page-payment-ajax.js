@@ -135,6 +135,10 @@ $(document).ready(function () {
         },
     });
 
+    table.on('click', 'tr', function () {
+        window.location.href = `${path}/pdf/${this.getAttribute('id')}`;
+    });
+
     table.on('click', 'button', function () {
         let rowTable = $(this).parent().parent();
         rowTable.addClass("text-danger");
