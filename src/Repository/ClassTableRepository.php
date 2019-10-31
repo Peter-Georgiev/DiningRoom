@@ -19,7 +19,7 @@ class ClassTableRepository extends ServiceEntityRepository
         parent::__construct($registry, ClassTable::class);
     }
 
-    public function findByNameClass(ClassTable $classTable)
+    public function findByClassName(ClassTable $classTable)
     {
         return $this->createQueryBuilder('c')
             ->where('c.name = ?1')

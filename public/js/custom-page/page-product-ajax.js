@@ -65,9 +65,17 @@ $(document).ready(function () {
                         title: 'Дата на създаване'
                     },
                     {
-                        data: 'lastEdit', // can be null or undefined
-                        defaultContent: `<i></i>`,
-                        title: 'Последна редакция'
+                        data: function (row, type, val, meta) {
+                            let lastEdit = row.lastEdit;
+                            let dateCreate = row.dateCreate;
+                            if (lastEdit !== dateCreate) {
+                                return lastEdit;
+                            } else if (lastEdit === dateCreate) {
+                                return 'Няма';
+                            }
+                            return `<i></i>`;
+                        },
+                        title: 'Редакция'
                     },
                     {
                         title: 'Плащане'

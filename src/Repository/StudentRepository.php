@@ -50,7 +50,7 @@ class StudentRepository extends ServiceEntityRepository
 
     public function findByFullName(Student $student)
     {
-        return $this->createQueryBuilder('s')
+         return $this->createQueryBuilder('s')
             ->innerJoin('s.classes', 'c')
             ->where('s.fullName = ?1')
             ->andWhere('c.name = ?2')

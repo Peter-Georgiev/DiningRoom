@@ -112,7 +112,7 @@ class Product
 
     public function getLastEdit(): ?\DateTimeInterface
     {
-        return $this->dateCreate;
+        return $this->lastEdit;
     }
 
     public function setLastEdit(\DateTimeInterface $lastEdit): self

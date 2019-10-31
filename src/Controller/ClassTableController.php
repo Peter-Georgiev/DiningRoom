@@ -37,11 +37,12 @@ class ClassTableController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $existingClass = $this->getDoctrine()->getRepository(ClassTable::class)
-                    ->findByNameClass($classTable);
-                if ($existingClass) {
-                    throw new \Exception('"' . $classTable->getName() . '" вече съществува!');
-                }
+                //Transliterate cyr text - Uppercase the first character of each word in a string
+                $classTable->setName(
+                    $this->strTransToLoweAndUcFirst($classTable->getName())
+                );
+
+                $this->findExistingClass($classTable);
 
                 try {
                     $em = $this->getDoctrine()->getManager();
@@ -85,13 +86,12 @@ class ClassTableController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var ClassTable $existingClass */
-                $existingClass = $this->getDoctrine()->getRepository(ClassTable::class)
-                    ->findByNameClass($classTable)[0];
-                if ($existingClass && $existingClass->getId() !== $classTable->getId()) {
-                    $classTable->setName($name);
-                    throw new \Exception('"' . $existingClass->getName() . '" вече съществува!');
-                }
+                //Transliterate cyr text - Uppercase the first character of each word in a string
+                $classTable->setName(
+                    $this->strTransToLoweAndUcFirst($classTable->getName())
+                );
+
+                $this->findExistingClass($classTable, $name);
 
                 try {
                     $em = $this->getDoctrine()->getManager();
@@ -140,5 +140,58 @@ class ClassTableController extends AbstractController
         $classTables = $this->getDoctrine()->getRepository(ClassTable::class)->findAll();
         return $this->render('class_table/index.html.twig', ['classTables' => $classTables, 'danger' => $message
         ]);
+    }
+
+    private function strTransToLoweAndUcFirst(string $str)
+    {
+        $string = '';
+        $token = array_map('trim', explode(' ', $str));
+        for ($i = 0; $i < count($token); $i++) {
+            if ($token[$i] !== '') {
+                $t  = $this->transliterate(null,$token[$i]);
+                $string .= mb_convert_case($t, MB_CASE_TITLE,  'UTF-8');
+            }
+        }
+        return $string;
+    }
+
+    private function transliterate($textcyr = null, $textlat = null) {
+        $cyr = array(
+            'ж',  'ч',  'щ',   'ш',  'ю',  'а', 'б', 'в', 'г', 'д', 'е', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п',
+            'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ъ', 'ь', 'я', 'Ж',  'Ч',  'Щ',   'Ш',  'Ю',  'А', 'Б', 'В', 'Г', 'Д',
+            'Е', 'З', 'И', 'Й', 'К', 'Л', 'М', 'Н', 'О', 'П', 'Р', 'С', 'Т', 'У', 'Ф', 'Х', 'Ц', 'Ъ', 'Ь', 'Я');
+        $lat = array(
+            'zh', 'ch', 'sht', 'sh', 'yu', 'a', 'b', 'v', 'g', 'd', 'e', 'z', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+            'r', 's', 't', 'u', 'f', 'h', 'c', 'y', 'x', 'q', 'Zh', 'Ch', 'Sht', 'Sh', 'Yu', 'A', 'B', 'V', 'G', 'D',
+            'E', 'Z', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'R', 'S', 'T', 'U', 'F', 'H', 'c', 'Y', 'X', 'Q');
+        if($textcyr) {
+            return str_replace($cyr, $lat, $textcyr);
+        } else if($textlat) {
+            return str_replace($lat, $cyr, $textlat);
+        }
+        else return null;
+    }
+
+    private function findExistingClass(ClassTable $classTable, string $name = null)
+    {
+        $existingArrayClass = $this->getDoctrine()->getRepository(ClassTable::class)
+            ->findByClassName($classTable);
+
+        if ($existingArrayClass) {
+            /** @var ClassTable $existingClass */
+            $existingClass = $existingArrayClass[0];
+            $isExist = false;
+            if (!$name) {
+                $isExist = true;
+            } elseif ($existingClass->getId() !== $classTable->getId()) {
+                $classTable->setName($name);
+                $isExist = true;
+            }
+
+            if ($isExist) {
+                throw new \Exception('"' . $existingClass->getName() . '" вече съществува!');
+            }
+        }
+        return false;
     }
 }

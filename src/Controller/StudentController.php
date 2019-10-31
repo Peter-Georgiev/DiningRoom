@@ -7,6 +7,7 @@ use App\Entity\Student;
 use App\Entity\Teacher;
 use App\Form\StudentType;
 use App\Repository\StudentRepository;
+use Doctrine\DBAL\Driver\AbstractDB2Driver;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -47,18 +48,16 @@ class StudentController extends AbstractController
                     ->find($request->get('teacher')['id']);
                 $student->setClass($classTable);
                 $student->setTeacher($teacher);
+                // Uppercase the first character of each word in a string
+                $fullName = $this->strToLoweAndUcFirst($student->getFullName());
+                $student->setFullName($fullName);
 
-                $existingStudent = $this->getDoctrine()->getRepository(Student::class)
-                    ->findByFullName($student);
-                if ($existingStudent) {
-                    throw new \Exception('"' . $student->getFullName() . '" вече съществува от "' .
-                        $student->getClass()->getName() . '" клас!');
-                }
+                $this->findExistingStudent($student);
 
                 try {
                     $em = $this->getDoctrine()->getManager();
                     $em->persist($student);
-                    $em->flus();
+                    $em->flush();
                     return $this->redirectToRoute('student');
                 } catch (\Exception $e) {
                     throw new \Exception('Възникна грешка при запис на ученик ' . $student->getFullName() . '!');
@@ -102,14 +101,11 @@ class StudentController extends AbstractController
                     ->find($request->get('teacher')['id']);
                 $student->setClass($classTable);
                 $student->setTeacher($teacher);
-                /** @var Student $existingStudent */
-                $existingStudent = $this->getDoctrine()->getRepository(Student::class)
-                    ->findByFullName($student)[0];
-                if ($existingStudent  && $existingStudent->getId() !== $student->getId()) {
-                    $student->setFullName($name);
-                    throw new \Exception('"' . $existingStudent->getFullName() . '" вече съществува от "' .
-                        $existingStudent->getClass()->getName() . '" клас!');
-                }
+                // Uppercase the first character of each word in a string
+                $fullName = $this->strToLoweAndUcFirst($student->getFullName());
+                $student->setFullName($fullName);
+
+               $this->findExistingStudent($student, $name);
 
                 try {
                     $em = $this->getDoctrine()->getManager();
@@ -185,5 +181,44 @@ class StudentController extends AbstractController
         return $this->render('student/pagination-test.html.twig', [//'form' => $form->createView(),
             'pagination' => $pagination,
         ]);
+    }
+
+    private function strToLoweAndUcFirst(string $str)
+    {
+        $string = '';
+        $token = array_map('trim', explode(' ', $str));
+        for ($i = 0; $i < count($token); $i++) {
+            if ($token[$i] !== '') {
+                $string .= mb_convert_case($token[$i], MB_CASE_TITLE,  'UTF-8');
+                if ($i < count($token) - 1) {
+                    $string .= ' ';
+                }
+            }
+        }
+        return $string;
+    }
+
+    private function findExistingStudent(Student $student, string $name = null)
+    {
+        $existingArrayStudent = $this->getDoctrine()->getRepository(Student::class)
+            ->findByFullName($student);
+
+        if ($existingArrayStudent) {
+            /** @var Student $existingStudent */
+            $existingStudent = $existingArrayStudent[0];
+            $isExist = false;
+            if (!$name) {
+                $isExist = true;
+            } elseif ($existingStudent->getId() !== $student->getId()) {
+                $student->setFullName($name);
+                $isExist = true;
+            }
+
+            if ($isExist) {
+                throw new \Exception('"' . $existingStudent->getFullName() . '" вече съществува от "' .
+                    $existingStudent->getClass()->getName() . '" клас!');
+            }
+        }
+        return false;
     }
 }

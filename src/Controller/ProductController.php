@@ -126,13 +126,13 @@ class ProductController extends AbstractController
                 )
             ])
             ->getForm();*/
-
        //dd($product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $student = $this->getDoctrine()->getRepository(Student::class)
                 ->find($request->get('student')['id']);
+            $product->setLastEdit(new \DateTime('now'));
 
             if ($student) {
                 $product->setStudent($student);
@@ -191,6 +191,7 @@ class ProductController extends AbstractController
                 'students' => array(),
             );
             foreach ($c->getStudents() as $s) {
+                /** @var Student| $s */
                 $arrClasses[$i]['students'][] = array(
                     'studentId' => $s->getId(),
                     'student' => $s->getFullName(),

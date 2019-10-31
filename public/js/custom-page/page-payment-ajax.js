@@ -66,7 +66,7 @@ $(document).ready(function () {
                             }
                             return `<i></i>`;
                         },
-                        title: 'Редакция на плащането'
+                        title: 'Редакция'
                     },
                     {
                         data: 'namePayer', // can be null or undefined

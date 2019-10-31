@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\ClassTable;
 use App\Entity\Teacher;
 use App\Form\TeacherType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -37,11 +38,11 @@ class TeacherController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $existingTeacher = $this->getDoctrine()->getRepository(Teacher::class)
-                    ->findByFullName($teacher);
-                if ($existingTeacher) {
-                    throw new \Exception('"' . $teacher->getFullName() . '" вече съществува!');
-                }
+                // Uppercase the first character of each word in a string
+                $fullName = $this->strToLoweAndUcFirst($teacher->getFullName());
+                $teacher->setFullName($fullName);
+
+                $this->findExistingTeacher($teacher);
 
                 try {
                     $em = $this->getDoctrine()->getManager();
@@ -86,13 +87,12 @@ class TeacherController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                /** @var Teacher $existingTeacher */
-                $existingTeacher = $this->getDoctrine()->getRepository(Teacher::class)
-                    ->findByFullName($teacher)[0];
-                if ($existingTeacher && $existingTeacher->getId() !== $teacher->getId()) {
-                    $teacher->setFullName($name);
-                    throw new \Exception('"' . $existingTeacher->getFullName() . '" вече съществува!');
-                }
+
+                // Uppercase the first character of each word in a string
+                $fullName = $this->strToLoweAndUcFirst($teacher->getFullName());
+                $teacher->setFullName($fullName);
+
+                $this->findExistingTeacher($teacher, $name);
 
                 try {
                     $em = $this->getDoctrine()->getManager();
@@ -143,4 +143,41 @@ class TeacherController extends AbstractController
         ]);
     }
 
+    private function strToLoweAndUcFirst(string $str)
+    {
+        $string = '';
+        $token = array_map('trim', explode(' ', $str));
+        for ($i = 0; $i < count($token); $i++) {
+            if ($token[$i] !== '') {
+                $string .= mb_convert_case($token[$i], MB_CASE_TITLE,  'UTF-8');
+                if ($i < count($token) - 1) {
+                    $string .= ' ';
+                }
+            }
+        }
+        return $string;
+    }
+
+    private function findExistingTeacher(Teacher $teacher, string $name = null)
+    {
+        $existingArrayTeacher = $this->getDoctrine()->getRepository(Teacher::class)
+            ->findByFullName($teacher);
+
+        if ($existingArrayTeacher) {
+            /** @var Teacher $existingTeacher */
+            $existingTeacher = $existingArrayTeacher[0];
+            $isExist = false;
+            if (!$name) {
+                $isExist = true;
+            } elseif ($existingTeacher->getId() !== $teacher->getId()) {
+                $teacher->setFullName($name);
+                $isExist = true;
+            }
+
+            if ($isExist) {
+                throw new \Exception('"' . $existingTeacher->getFullName() . '" вече съществува!');
+            }
+        }
+        return false;
+    }
 }
